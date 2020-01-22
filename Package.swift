@@ -9,6 +9,10 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "Localization",
+            type: .static,
+            targets: ["Localization"]),
+        .library(
+            name: "sharedLocalization",
             type: .dynamic,
             targets: ["Localization"]),
     ],
