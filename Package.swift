@@ -12,7 +12,7 @@ let package = Package(
             type: .static,
             targets: ["Localization"]),
         .library(
-            name: "sharedLocalization",
+            name: "LocalizationShared",
             type: .dynamic,
             targets: ["Localization"]),
     ],
