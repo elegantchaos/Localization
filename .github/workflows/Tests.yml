@@ -9,8 +9,8 @@ on: [push, pull_request]
 
 jobs:
 
-    macOS-swift-50:
-        name: macOS (Swift 5.0)
+    macOS-swift-51:
+        name: macOS (Swift 5.1)
         runs-on: macos-10.15
         steps:
         - name: Checkout
@@ -20,7 +20,7 @@ jobs:
         - name: Xcode Version
           run: |
             ls -d /Applications/Xcode*
-            sudo xcode-select -s /Applications/Xcode_11.2.1.app
+            sudo xcode-select -s /Applications/Xcode_11.3.1.app
             xcodebuild -version
             swift --version
         - name: Swift Version
@@ -76,10 +76,10 @@ jobs:
             path: logs
 
 
-    linux-swift-50:
-        name: Linux (Swift 5.0)
+    linux-swift-51:
+        name: Linux (Swift 5.1)
         runs-on: ubuntu-18.04
-        container: swift:5.0
+        container: swift:5.1
         steps:
         - name: Checkout
           uses: actions/checkout@v1
@@ -118,8 +118,8 @@ jobs:
             path: logs
 
 
-    xcode-swift-50:
-        name: iOS/tvOS/watchOS (Swift 5.0, Xcode 11.2.1)
+    xcode-swift-51:
+        name: iOS/tvOS/watchOS (Swift 5.1, Xcode 11.3.1)
         runs-on: macos-10.15
         steps:
         - name: Checkout
@@ -129,7 +129,7 @@ jobs:
         - name: Xcode Version
           run: |
             ls -d /Applications/Xcode*
-            sudo xcode-select -s /Applications/Xcode_11.2.1.app
+            sudo xcode-select -s /Applications/Xcode_11.3.1.app
             xcodebuild -version
             swift --version
         - name: XC Pretty
