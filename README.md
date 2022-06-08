@@ -16,5 +16,41 @@
 
 # Localization
 
-Swift Localization utilities.
+Some simple Swift extensions to support localization.
 
+### A Note About Keys and Comments
+ 
+Historically the localization system has assumed that the string for the primary language will be embedded in the source code. Later, these strings will be extracted into a localization file for translators. To assist with the translation process, a comment explaining the string could be included with it in the source code.
+
+The way I use the localization system is that the embedded string is always just a short key. 
+
+I expect this key to be replaced by a translated value even when running in the primary language.
+  
+I find having the full string inside the source code to be unhelpful, and having comments embedded in the code even less helpful (as in many cases there is no obvious comment to give).
+
+I therefore do use the extraction tools, and hand-craft the `localization` file for the primary language.
+
+These utilities are written with the above in mind. If you don't use the system the way I do, they may be of limited value to you.  
+
+# Usage
+
+## String.localized
+
+We add a read-only `localized` property to `String`. Calling it will give you the localized version of the string, if there is one. 
+
+## String.localized(…)
+
+We also add a `localized` function to `String` which allows for simple argument substitution in the localized string.
+
+Pass in a dictionary of keys and substitutions, and any instances of `{key}` in the localized text will be replaced with the substitution value.
+
+## String.localized(count: …)
+
+This variation of the `localized` function uses one of three variations of the source string as the key when looking up the localized value. Which of the three is used is determined by the value of the count:
+
+ - 0: uses `key.none`
+ - 1: uses `key.singular`
+ - 2: uses `key.plural`
+ 
+ This will not be sophisticated enough for all situations, but suffices for many that I've encountered.
+ 
