@@ -8,21 +8,16 @@ import Foundation
 public extension String {
     
     /// Look up a simple localized version of the string, using the default search strategy.
-    
     var localized: String {
         return localized(with: [:])
     }
     
-    /**
-     Look up a localized version of the string.
-     
-     If a bundle is specified, we only search there.
-     If no bundle is specified, we search in a set of registered bundles.
-     This always includes the main bundle, but can have other bundles added to it, allowing you
-     to automatically pick up translations from framework bundles (without having to search through
-     every loaded bundle).
-     */
-    
+    /// Look up a localized version of the string.
+    /// If a bundle is specified, we only search there.
+    /// If no bundle is specified, we search in a set of registered bundles.
+    /// This always includes the main bundle, but can have other bundles added to it, allowing you
+    /// to automatically pick up translations from framework bundles (without having to search through
+    /// every loaded bundle).
     func localized(with args: [String:Any], tableName: String? = nil, bundle: Bundle? = nil, value: String = "", comment: String = "") -> String {
         var string = self
         let bundlesToSearch = bundle == nil ? Localization.bundlesToSearch : [bundle!]
@@ -64,7 +59,7 @@ public extension String {
     ///   - count: The number of items the translated text is referring to.
     ///   - selected: The number of selected items the translated text is referring to.
     /// - Returns: The translated text.
-    func localized(count: Int, selected: Int = 0) -> String {
+    func localized(count: Int, selected: Int = 0, with args: [String:Any] = [:]) -> String {
         var key = self
         if count > 0 && count == selected {
             key += ".all"
@@ -76,6 +71,9 @@ public extension String {
             }
         }
         
-        return key.localized(with: ["count": count, "selected": selected])
+        var expandedArgs = args
+        expandedArgs["count"] = count
+        expandedArgs["selected"] = selected
+        return key.localized(with: expandedArgs)
     }
 }

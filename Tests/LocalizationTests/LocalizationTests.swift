@@ -15,6 +15,10 @@ count.none = "none";
 count.singular = "one";
 count.plural = "{count}";
 
+count.extra.none = "no {foo}s";
+count.extra.singular = "one {foo}";
+count.extra.plural = "{count} {foo}s";
+
 selection.none = "None selected";
 selection.singular = "One of {count} selected";
 selection.plural = "{selected} of {count} selected";
@@ -74,6 +78,13 @@ class StringLocalizationTests: XCTestCase {
         XCTAssertEqual("selection".localized(count: 2, selected: 0), "0 of 2 selected")
         XCTAssertEqual("selection".localized(count: 2, selected: 1), "1 of 2 selected")
         XCTAssertEqual("selection".localized(count: 2, selected: 2), "All 2 selected")
+    }
+
+    func testCountWithExtraArgs() {
+        Localization.registerLocalizationBundle(Bundle(for: type(of: self)))
+        XCTAssertEqual("count.extra".localized(count: 0, with: ["foo": "bar"]), "no bars")
+        XCTAssertEqual("count.extra".localized(count: 1, with: ["foo": "bar"]), "one bar")
+        XCTAssertEqual("count.extra".localized(count: 2, with: ["foo": "bar"]), "2 bars")
     }
 
 }
